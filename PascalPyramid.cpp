@@ -32,42 +32,14 @@ N이 주어진다. (1 =< N =< 5)
 #include <iostream>
 using namespace std;
 
-int dp[6][6][6]; // 최대 높이 5층이므로, 인덱스는 최대 5까지
-
 int main() {
     int N;
+    int a = 1;
     cin >> N;
 
-    // 꼭대기에서 시작
-    dp[0][0][0] = 1;
-
-    // 3중 for문으로 모든 좌표 순회
-    for (int i = 0; i < N; ++i) {
-        for (int j = 0; j < N - i; ++j) {
-            for (int k = 0; k < N - i - j; ++k) {
-                int curr = dp[i][j][k];
-                if (curr == 0) continue;
-
-                // 아래층으로 내려가는 3가지 방향
-                dp[i + 1][j][k] += curr;
-                dp[i][j + 1][k] += curr;
-                dp[i][j][k + 1] += curr;
-            }
-        }
+    for(int i=0;i<N;i++){
+        a *= 2;
     }
 
-    // 마지막 층에서 i+j+k == N-1 인 모든 블록의 경우의 수 합산
-    int result = 0;
-    for (int i = 0; i < N; ++i) {
-        for (int j = 0; j < N; ++j) {
-            for (int k = 0; k < N; ++k) {
-                if (i + j + k == N - 1) {
-                    result += dp[i][j][k];
-                }
-            }
-        }
-    }
-
-    cout << result << endl;
-    return 0;
+    cout << a;
 }
